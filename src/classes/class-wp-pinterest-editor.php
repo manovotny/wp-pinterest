@@ -80,7 +80,7 @@ class WP_Pinterest_Editor {
 
         wp_nonce_field( $this->slug, $this->slug . '-nonce' );
 
-        $pinterest_meta = $this->get_pinterest_meta( $post );
+        $pinterest_meta = WP_Pinterest::get_instance()->get_post_pinterest_meta( $post );
 
         echo '<fieldset>';
             echo '<ul>';
@@ -143,63 +143,6 @@ class WP_Pinterest_Editor {
             update_post_meta( $post_id, 'pinterest', $pinterest );
 
         }
-
-    }
-
-    /**
-     * Gets post Pinterest meta and sets default values, if none are entered.
-     *
-     * @param WP_Post $post The current post / page.
-     *
-     * @return array Pinterest meta.
-     */
-    private function get_pinterest_meta( $post ) {
-
-        $pinterest = maybe_unserialize( get_post_meta( $post->ID, 'pinterest', true ) );
-
-        if ( is_admin() ) {
-
-            if ( empty( $pinterest ) ) {
-
-                $pinterest[ 'hover' ] = 'true';
-                $pinterest[ 'description' ] = '';
-                $pinterest[ 'image' ] = '';
-                $pinterest[ 'url' ] = '';
-
-            }
-
-            return $pinterest;
-
-        }
-
-        if ( ! isset( $pinterest[ 'hover' ] ) ) {
-
-            $pinterest[ 'hover' ] = 'true';
-
-        }
-
-        if ( empty( $pinterest[ 'description' ] ) ) {
-
-            $pinterest[ 'description' ] = $post->post_title;
-
-        }
-
-        if ( empty( $pinterest[ 'image' ] ) ) {
-
-            $default_image = '';
-            $default_image = apply_filters( 'wp_pinterest_default_image', $default_image );
-
-            $pinterest[ 'image' ] = WP_Image_Util::get_instance()->get_first_image( $post->post_content, $default_image );
-
-        }
-
-        if ( empty( $pinterest[ 'url' ] ) ) {
-
-            $pinterest[ 'url' ] = get_permalink();
-
-        }
-
-        return $pinterest;
 
     }
 
