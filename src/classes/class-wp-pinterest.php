@@ -47,4 +47,15 @@ class WP_Pinterest {
 
     }
 
+    /**
+     * Gets version.
+     *
+     * @return string Version.
+     */
+    public function get_version() {
+
+        return $this->version;
+
+    }
+
 }
