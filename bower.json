@@ -1,0 +1,27 @@
+{
+    "name": "wp-pinterest",
+    "version": "0.0.0",
+    "description": "Add Pinterest integration to WordPress.",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/manovotny/wp-pinterest.git"
+    },
+    "keywords": [
+        "pin",
+        "pinterest",
+        "sharing",
+        "social",
+        "social media",
+        "wordpress"
+    ],
+    "authors": [
+        {
+            "name": "Michael Novotny",
+            "email": "manovotny@gmail.com",
+            "homepage": "http://manovotny.com"
+        }
+    ],
+    "devDependencies": {
+        "sass-lint-config": "git://github.com/manovotny/sass-lint-config.git#0.1.0"
+    }
+}

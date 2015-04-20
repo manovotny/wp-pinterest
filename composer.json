@@ -1,0 +1,47 @@
+{
+    "name": "manovotny/wp-pinterest",
+    "version": "0.0.0",
+    "description": "Add Pinterest integration to WordPress.",
+    "type": "library",
+    "homepage": "https://github.com/manovotny/wp-pinterest",
+    "authors": [
+        {
+            "name": "Michael Novotny",
+            "email": "manovotny@gmail.com",
+            "homepage": "http://manovotny.com",
+            "role": "Developer"
+        }
+    ],
+    "license": "GPL-3.0+",
+    "keywords": [
+        "pin",
+        "pinterest",
+        "sharing",
+        "social",
+        "social media",
+        "wordpress"
+    ],
+    "require": {
+        "manovotny/wp-enqueue-util": "~1.1",
+        "manovotny/wp-image-util": "~1.1"
+    },
+    "require-dev": {
+        "manovotny/wp-phpunit-helpers": "~1.0",
+        "phpunit/phpunit": "4.1.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src"
+        ],
+        "files": [
+            "wp-pinterest.php"
+        ]
+    },
+    "autoload-dev": {
+        "classmap": [
+            "vendor/phpunit",
+            "vendor/sebastian",
+            "vendor/symfony"
+        ]
+    }
+}
