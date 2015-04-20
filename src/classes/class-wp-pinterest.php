@@ -48,6 +48,17 @@ class WP_Pinterest {
     }
 
     /**
+     * Gets slug.
+     *
+     * @return string Slug.
+     */
+    public function get_slug() {
+
+        return $this->slug;
+
+    }
+
+    /**
      * Gets version.
      *
      * @return string Version.
