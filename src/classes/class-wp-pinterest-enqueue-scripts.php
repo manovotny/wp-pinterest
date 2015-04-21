@@ -72,10 +72,6 @@ class WP_Pinterest_Enqueue_Scripts {
             true
         );
 
-//        $localization_name = WP_Recipe_Util::get_instance()->get_id( $wp_recipe->get_slug() );
-//
-//        $options->set_localization( $localization_name, $data );
-
         $wp_enqueue_util->enqueue_script( $options );
 
     }

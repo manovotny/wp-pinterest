@@ -9,7 +9,6 @@
          * write our own.
          */
 
-        // Custom Pinterest script.
         $('.pin-it-button-hover, .pin-it-button').on('click', '.pin-it', function (event) {
             event.preventDefault();
             event.stopImmediatePropagation();
