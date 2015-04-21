@@ -3,7 +3,7 @@
  * Plugin Name: WP Pinterest
  * Plugin URI: https://github.com/manovotny/wp-pinterest
  * Description: Add Pinterest integration to WordPress.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Michael Novotny
  * Author URI: http://manovotny.com
  * License: GPL-3.0+
