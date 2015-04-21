@@ -52,6 +52,12 @@ class WP_Pinterest_Enqueue_Styles {
      */
     public function __enqueue_styles() {
 
+        if ( ! apply_filters( 'wp_pinterest_load_default_styles', true ) ) {
+
+            return;
+
+        }
+
         $wp_pinterest = WP_Pinterest::get_instance();
         $wp_enqueue_util = WP_Enqueue_Util::get_instance();
 
