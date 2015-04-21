@@ -80,6 +80,11 @@ class WP_Pinterest_Enqueue_Scripts {
 
     }
 
+    /**
+     * Gets data to pass to JavaScript.
+     *
+     * @return array Data to return to JavaScript.
+     */
     private function get_data() {
 
         $data = array(
