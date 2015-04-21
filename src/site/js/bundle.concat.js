@@ -21,7 +21,7 @@
         config = {
             hoverButtonMarkup: '<span class="pinterest-pin-it-button-hover"></span>',
             hoverButtonOffset: 10,
-            hoverImageOpacity: 0.50,
+            hoverImageOpacity: 0.70,
             imageSelector: data.selectors.content + ' img:not([data-pin-no-hover="true"])',
             postTitleSelector: data.selectors.title
         },
