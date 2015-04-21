@@ -1,4 +1,4 @@
 wp-pinterest
 ==========
 
-Add recipes to WordPress
+Add Pinterest integration to WordPress.
