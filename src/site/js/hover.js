@@ -2,15 +2,14 @@
 
     'use strict';
 
-    var config = {
+    var data = require('./data'),
+
+        config = {
             hoverButtonMarkup: '<span class="pinterest-pin-it-button-hover"></span>',
             hoverButtonOffset: 10,
-            hoverButtonPosition: 'top-right',
             hoverImageOpacity: 0.50,
-            //imageSelector: 'div.entry-content img:not([data-pin-no-hover="true"])',
-            //postTitleSelector: '.entry-title'
-            imageSelector: '.post-content img:not([data-pin-no-hover="true"])',
-            postTitleSelector: '.entry-title'
+            imageSelector: data.selectors.content + ' img:not([data-pin-no-hover="true"])',
+            postTitleSelector: data.selectors.title
         },
 
         $button,
@@ -68,35 +67,29 @@
         return (mouseWithinButtonWidth && mouseWithinButtonHeight);
     }
 
-    function positionHoverButton($image) {
-        var imagePosition = $image.position();
+    function positionHoverButton(image) {
+        var imageRect = image.getBoundingClientRect(),
+            scrollTop = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop,
+            scrollLeft = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft;
 
-        switch (config.hoverButtonPosition) {
-            case 'top-right':
-                $button.css('left', imagePosition.left + $image.width() - $button.width() - config.hoverButtonOffset + 'px');
-                $button.css('top', imagePosition.top + config.hoverButtonOffset + 'px');
-                break;
-            default:
-                // Defaults to 'top-left'.
-                $button.css('left', imagePosition.left + config.hoverButtonOffset + 'px');
-                $button.css('top', imagePosition.top + config.hoverButtonOffset + 'px');
-        }
+        $button.css('left', imageRect.left + scrollLeft + image.width - $button.width() - config.hoverButtonOffset + 'px');
+        $button.css('top', imageRect.top + scrollTop + config.hoverButtonOffset + 'px');
     }
 
     function handleMouseoverImages() {
-        var $image = $(this), // jshint ignore:line
+        var image = this, // jshint ignore:line
             $postTitle = $(config.postTitleSelector),
-            imageSource = this.src, // jshint ignore:line
-            imageAlt = $.trim(this.alt), // jshint ignore:line
+            imageSource = image.src,
+            imageAlt = $.trim(image.alt),
             url = getPinUrl($postTitle),
             description = getPinDescription(imageAlt, $postTitle),
             link = '<a class="pin-it">' + config.hoverButtonMarkup + '</a>';
 
-        $image.css('opacity', config.hoverImageOpacity);
+        $(image).css('opacity', config.hoverImageOpacity);
 
         $button.html(link);
 
-        positionHoverButton($image);
+        positionHoverButton(image);
 
         $button.find('> a').attr('href', createPinterestPopupUrl(url, imageSource, description));
 

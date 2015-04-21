@@ -1,17 +1,29 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function (global){
+(function (global) {
+
+    'use strict';
+
+    module.exports = {
+        selectors: global.wp_pinterest.selectors
+    };
+
+}(global));
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],2:[function(require,module,exports){
 (function ($) {
 
     'use strict';
 
-    var config = {
+    var data = require('./data'),
+
+        config = {
             hoverButtonMarkup: '<span class="pinterest-pin-it-button-hover"></span>',
             hoverButtonOffset: 10,
-            hoverButtonPosition: 'top-right',
             hoverImageOpacity: 0.50,
-            //imageSelector: 'div.entry-content img:not([data-pin-no-hover="true"])',
-            //postTitleSelector: '.entry-title'
-            imageSelector: '.post-content img:not([data-pin-no-hover="true"])',
-            postTitleSelector: '.entry-title'
+            imageSelector: data.selectors.content + ' img:not([data-pin-no-hover="true"])',
+            postTitleSelector: data.selectors.title
         },
 
         $button,
@@ -69,35 +81,29 @@
         return (mouseWithinButtonWidth && mouseWithinButtonHeight);
     }
 
-    function positionHoverButton($image) {
-        var imagePosition = $image.position();
+    function positionHoverButton(image) {
+        var imageRect = image.getBoundingClientRect(),
+            scrollTop = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop,
+            scrollLeft = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft;
 
-        switch (config.hoverButtonPosition) {
-            case 'top-right':
-                $button.css('left', imagePosition.left + $image.width() - $button.width() - config.hoverButtonOffset + 'px');
-                $button.css('top', imagePosition.top + config.hoverButtonOffset + 'px');
-                break;
-            default:
-                // Defaults to 'top-left'.
-                $button.css('left', imagePosition.left + config.hoverButtonOffset + 'px');
-                $button.css('top', imagePosition.top + config.hoverButtonOffset + 'px');
-        }
+        $button.css('left', imageRect.left + scrollLeft + image.width - $button.width() - config.hoverButtonOffset + 'px');
+        $button.css('top', imageRect.top + scrollTop + config.hoverButtonOffset + 'px');
     }
 
     function handleMouseoverImages() {
-        var $image = $(this), // jshint ignore:line
+        var image = this, // jshint ignore:line
             $postTitle = $(config.postTitleSelector),
-            imageSource = this.src, // jshint ignore:line
-            imageAlt = $.trim(this.alt), // jshint ignore:line
+            imageSource = image.src,
+            imageAlt = $.trim(image.alt),
             url = getPinUrl($postTitle),
             description = getPinDescription(imageAlt, $postTitle),
             link = '<a class="pin-it">' + config.hoverButtonMarkup + '</a>';
 
-        $image.css('opacity', config.hoverImageOpacity);
+        $(image).css('opacity', config.hoverImageOpacity);
 
         $button.html(link);
 
-        positionHoverButton($image);
+        positionHoverButton(image);
 
         $button.find('> a').attr('href', createPinterestPopupUrl(url, imageSource, description));
 
@@ -138,7 +144,7 @@
 
 }(jQuery));
 
-},{}],2:[function(require,module,exports){
+},{"./data":1}],3:[function(require,module,exports){
 (function ($) {
 
     'use strict';
@@ -162,4 +168,4 @@
 
 }(jQuery));
 
-},{}]},{},[1,2]);
+},{}]},{},[1,2,3]);

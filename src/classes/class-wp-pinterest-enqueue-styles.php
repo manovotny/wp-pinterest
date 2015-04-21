@@ -1,6 +1,6 @@
 <?php
 
-class WP_Pinterest_Enqueue_Scripts {
+class WP_Pinterest_Enqueue_Styles {
 
     /* Properties
     ---------------------------------------------------------------------------------- */
@@ -8,7 +8,7 @@ class WP_Pinterest_Enqueue_Scripts {
     /**
      * Instance of the class.
      *
-     * @var WP_Pinterest_Enqueue_Scripts
+     * @var WP_Pinterest_Enqueue_Styles
      */
     protected static $instance = null;
 
@@ -20,7 +20,7 @@ class WP_Pinterest_Enqueue_Scripts {
      */
     public function __construct() {
 
-        add_action( 'wp_enqueue_scripts', array( $this, '__enqueue_scripts' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, '__enqueue_styles' ) );
 
     }
 
@@ -30,7 +30,7 @@ class WP_Pinterest_Enqueue_Scripts {
     /**
      * Gets instance of class.
      *
-     * @return WP_Pinterest_Enqueue_Scripts Instance of the class.
+     * @return WP_Pinterest_Enqueue_Styles Instance of the class.
      */
     public static function get_instance() {
 
@@ -48,19 +48,18 @@ class WP_Pinterest_Enqueue_Scripts {
     ---------------------------------------------------------------------------------- */
 
     /**
-     * Enqueues scripts.
+     * Enqueues styles.
      */
-    public function __enqueue_scripts() {
+    public function __enqueue_styles() {
 
-        $wp_enqueue_util = WP_Enqueue_Util::get_instance();
         $wp_pinterest = WP_Pinterest::get_instance();
+        $wp_enqueue_util = WP_Enqueue_Util::get_instance();
 
-        $handle = $wp_pinterest->get_slug() . '-scripts';
-        $relative_path = __DIR__ . '/../site/js/';
-        $filename = 'bundle.min.js';
-        $filename_debug = 'bundle.concat.js';
+        $handle = $wp_pinterest->get_slug() . '-styles';
+        $relative_path = __DIR__ . '/../site/css/';
+        $filename = 'wp-pinterest.min.css';
+        $filename_debug = 'wp-pinterest.css';
         $dependencies = array();
-        $version = $wp_pinterest->get_version();
 
         $options = new WP_Enqueue_Options(
             $handle,
@@ -68,28 +67,10 @@ class WP_Pinterest_Enqueue_Scripts {
             $filename,
             $filename_debug,
             $dependencies,
-            $version,
-            true
+            $wp_pinterest->get_version()
         );
 
-        $localization_name = 'wp_pinterest';
-
-        $options->set_localization( $localization_name, $this->get_data() );
-
-        $wp_enqueue_util->enqueue_script( $options );
-
-    }
-
-    private function get_data() {
-
-        $data = array(
-            'selectors' => array(
-                'content' => apply_filters( 'wp_pinterest_content_selector', '' ),
-                'title' => apply_filters( 'wp_pinterest_title_selector', '' )
-            )
-        );
-
-        return $data;
+        $wp_enqueue_util->enqueue_style( $options );
 
     }
 
