@@ -25,7 +25,7 @@ class WP_Pinterest {
      *
      * @var string
      */
-    protected $version = '1.1.0';
+    protected $version = '1.2.0';
 
     /* Public
     ---------------------------------------------------------------------------------- */

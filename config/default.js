@@ -28,7 +28,7 @@ module.exports = (function () {
             slug: 'wp-pinterest',
             type: 'plugin', // Should be `plugin` or `theme`.
             url: 'https://github.com/manovotny/wp-pinterest',
-            version: '1.1.0'
+            version: '1.2.0'
         }
     };
 
