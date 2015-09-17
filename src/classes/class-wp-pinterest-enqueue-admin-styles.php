@@ -55,7 +55,7 @@ class WP_Pinterest_Enqueue_Admin_Styles {
         $wp_pinterest = WP_Pinterest::get_instance();
         $wp_post_type_util = WP_Post_Type_Util::get_instance();
 
-        if ( $wp_post_type_util->is_post_type_add_or_edit_screen( 'post' ) ) {
+        if ( $wp_post_type_util->is_post_type_add_or_edit_screen( 'post' ) || $wp_post_type_util->is_post_type_add_or_edit_screen( 'page' ) ) {
 
             $wp_enqueue_util = WP_Enqueue_Util::get_instance();
 

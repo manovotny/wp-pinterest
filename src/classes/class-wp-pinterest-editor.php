@@ -57,17 +57,28 @@ class WP_Pinterest_Editor {
 
     /**
      * Initializes view.
+     *
+     * @param string $post_type Post type requesting meta boxes.
      */
-    public function __initialize() {
+    public function __initialize( $post_type ) {
 
-        add_meta_box(
-            $this->slug,
-            'Pinterest',
-            array( $this, '__render' ),
-            'post',
-            'normal',
-            'high'
+        $allowed_post_types = array(
+            'page',
+            'post'
         );
+
+        if ( in_array( $post_type, $allowed_post_types ) ) {
+
+            add_meta_box(
+                $this->slug,
+                'Pinterest',
+                array( $this, '__render' ),
+                $post_type,
+                'normal',
+                'high'
+            );
+
+        }
 
     }
 
@@ -119,13 +130,12 @@ class WP_Pinterest_Editor {
      */
     public function __save( $post_id ) {
 
-        $post_type = 'post';
         $slug = $this->slug;
         $nonce = $this->slug . '-nonce';
 
         $wp_post_type_util = WP_Post_Type_Util::get_instance();
 
-        if ( ! $wp_post_type_util->is_post_type_saving_post_meta( $post_type ) ) {
+        if ( ! $wp_post_type_util->is_post_type_saving_post_meta( 'post' ) && ! $wp_post_type_util->is_post_type_saving_post_meta( 'page' ) ) {
 
             return;
 
